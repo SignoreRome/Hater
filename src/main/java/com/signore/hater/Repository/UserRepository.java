@@ -12,4 +12,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @EntityGraph(value = "user-role-entity-graph")
     List<User> findAll();
+
+    User findByActivationCode(String code);
 }
