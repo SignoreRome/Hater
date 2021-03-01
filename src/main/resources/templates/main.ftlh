@@ -20,14 +20,26 @@
     </div>
 
 
-    <div class="collapse multi-collapse" id="multiCollapseExample1">
+    <div class="collapse multi-collapse <#if message??>show</#if>" id="multiCollapseExample1">
         <div class="mb-3">
             <form method="post" enctype="multipart/form-data">
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" name="text" placeholder="Write message"/>
+                    <input type="text" class="form-control ${(textError??)?string('is-invalid','')}"
+                           value="<#if message??>${message.text}</#if>" name="text" placeholder="Write message"/>
+                    <#if textError??>
+                        <div class="invalid-feedback">
+                            ${textError}
+                        </div>
+                    </#if>
                 </div>
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" name="tag" placeholder="Tag">
+                    <input type="text" class="form-control"
+                           value="<#if message??>${message.tag}</#if>" name="tag" placeholder="Tag">
+                    <#if textError??>
+                        <div class="invalid-feedback">
+                            ${tagError}
+                        </div>
+                    </#if>
                 </div>
                 <div class="input-group mb-3">
                     <div class="input-group mb-3">
@@ -62,7 +74,10 @@
                 </div>
             </div>
         <#else>
-            No message
+            <div class="input-group mb-3">
+                    No message
+                </a>
+            </div>
         </#list>
     </div>
 </@c.page>

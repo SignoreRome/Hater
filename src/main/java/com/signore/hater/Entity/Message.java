@@ -2,8 +2,10 @@ package com.signore.hater.Entity;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 
 @Entity
@@ -11,12 +13,20 @@ import javax.persistence.*;
 @NoArgsConstructor
 public class Message {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
+    @NotBlank(message = "Please fill the message")
+    @Length(max = 2048, message = "Message too long")
+    @Column(name = "text")
     private String text;
+
+    @Length(max = 255, message = "Tag too long")
+    @Column(name = "tag")
     private String tag;
 
+    @Column(name = "filename")
     private String filename;
 
     @ManyToOne(fetch = FetchType.EAGER)

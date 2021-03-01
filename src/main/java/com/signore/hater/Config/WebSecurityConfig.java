@@ -1,13 +1,14 @@
 package com.signore.hater.Config;
 
 import com.signore.hater.Service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.sql.DataSource;
 
@@ -18,10 +19,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private DataSource dataSource;
     private UserService userService;
+    private PasswordEncoder passwordEncoder;
 
-    public WebSecurityConfig(DataSource dataSource, UserService userService) {
+    @Autowired
+    public WebSecurityConfig(DataSource dataSource, UserService userService, PasswordEncoder passwordEncoder) {
         this.dataSource = dataSource;
         this.userService = userService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -42,6 +46,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userService)
-                .passwordEncoder(NoOpPasswordEncoder.getInstance());
+                .passwordEncoder(passwordEncoder);
     }
 }
