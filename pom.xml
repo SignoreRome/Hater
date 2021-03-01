@@ -39,8 +39,19 @@
 			<artifactId>spring-context-support</artifactId>
 		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/org.flywaydb/flyway-core -->
+		<dependency>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-core</artifactId>
+			<version>7.5.4</version>
+		</dependency>
 
-
+		<!-- https://mvnrepository.com/artifact/org.flywaydb/flyway-maven-plugin -->
+		<dependency>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-maven-plugin</artifactId>
+			<version>7.5.4</version>
+		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -86,6 +97,20 @@
 							<artifactId>lombok</artifactId>
 						</exclude>
 					</excludes>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.flywaydb</groupId>
+				<artifactId>flyway-maven-plugin</artifactId>
+				<version>7.5.3</version>
+				<configuration>
+					<url>jdbc:postgresql://localhost:5432/hater?currentSchema=hater_schema</url>
+					<user>postgres</user>
+					<password>qwer</password>
+					<schemas>
+						<schema>hater_schema</schema>
+					</schemas>
 				</configuration>
 			</plugin>
 		</plugins>
