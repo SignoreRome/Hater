@@ -17,5 +17,3 @@ https://spring.io/guides/gs/consuming...​
 Spring session JDBC:
 https://docs.spring.io/spring-session...​
 
-Сайт bootstrap:
-https://getbootstrap.com/docs/4.1/com...​
