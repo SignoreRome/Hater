@@ -34,9 +34,6 @@ public class User implements UserDetails {
     @Column(name = "password")
     private String password;
 
-    @Transient
-    private String password2;
-
     @Column(name = "active")
     private boolean active;
 

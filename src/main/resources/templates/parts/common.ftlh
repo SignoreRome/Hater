@@ -16,6 +16,7 @@
                 integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D"
                 crossorigin="anonymous"
                 async></script>
+        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     </head>
     <body>
     <#include "navbar.ftlh">
