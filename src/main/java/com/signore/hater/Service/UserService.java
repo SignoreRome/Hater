@@ -16,4 +16,8 @@ public interface UserService extends UserDetailsService {
     void saveUser(User user, String username, Map<String, String> form);
 
     void updateProfile(User user, String password, String email);
+
+    void subscribe(User currentUser, User user);
+
+    void unsubscribe(User currentUser, User user);
 }
