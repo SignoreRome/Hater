@@ -5,7 +5,7 @@
         <div class="input-group mb-3">
             <form method="get" action="/main" class="form-inline">
                 <input type="text" name="filter" class="form-control" value="${filter?ifExists}"
-                       placeholder="Search by tag">
+                       placeholder="Search by tag"/>
                 <button class="btn btn-primary m-2" type="submit">Search</button>
             </form>
         </div>
@@ -33,7 +33,7 @@
                 </div>
                 <div class="input-group mb-3">
                     <input type="text" class="form-control"
-                           value="<#if message??>${message.tag}</#if>" name="tag" placeholder="Tag">
+                           value="<#if message??>${message.tag}</#if>" name="tag" placeholder="Tag"/>
                     <#if textError??>
                         <div class="invalid-feedback">
                             ${tagError}
@@ -42,7 +42,7 @@
                 </div>
                 <div class="input-group mb-3">
                     <div class="input-group mb-3">
-                        <input type="file" class="form-control" name="file" id="customFile">
+                        <input type="file" class="form-control" name="file" id="customFile"/>
                         <label class="input-group-text" for="customFile">Choose file</label>
                     </div>
                 </div>
