@@ -4,6 +4,8 @@ import com.signore.hater.Entity.Message;
 import com.signore.hater.Repository.MessageRepository;
 import com.signore.hater.Service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,14 +22,24 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    public List<Message> findAll() {
-        return messageRepository.findAll();
+    public Page<Message> findAll(Pageable pageable) {
+        return messageRepository.findAll(pageable);
     }
 
     @Override
     @Transactional
     public Message save(Message message) {
         return messageRepository.save(message);
+    }
+
+    @Override
+    public Page<Message> findByTag(String tag, Pageable pageable) {
+        return messageRepository.findByTag(tag, pageable);
+    }
+
+    @Override
+    public List<Message> findAll() {
+        return messageRepository.findAll();
     }
 
     @Override

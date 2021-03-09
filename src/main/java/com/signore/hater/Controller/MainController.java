@@ -6,6 +6,10 @@ import com.signore.hater.Service.MessageService;
 import com.signore.hater.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -45,14 +49,18 @@ public class MainController {
     @GetMapping("/main")
     public String main(
             @RequestParam(required = false, defaultValue = "") String filter,
-            Model model) {
-        List<Message> messages;
+            Model model,
+            @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable) {
+
+        Page<Message> page;
+
         if (filter != null && !filter.isEmpty()) {
-            messages = messageService.findByTag(filter);
+            page = messageService.findByTag(filter, pageable);
         } else {
-            messages = messageService.findAll();
+            page = messageService.findAll(pageable);
         }
-        model.addAttribute("messages", messages);
+        model.addAttribute("page", page);
+        model.addAttribute("url", "/main");
         model.addAttribute("filter", filter);
         return "main";
     }
@@ -78,10 +86,9 @@ public class MainController {
 
             messageService.save(message);
         }
-
-        List<Message> messages = messageService.findAll();
-        model.addAttribute("messages", messages);
-        return "main";
+//        List<Message> messages = messageService.findAll();
+//        model.addAttribute("messages", messages);
+        return "redirect:/main";
     }
 
     private void saveFile(Message message, MultipartFile file) throws IOException {
@@ -105,7 +112,8 @@ public class MainController {
     public String userMessages(@AuthenticationPrincipal User currentUser,
                                @PathVariable User user,
                                Model model,
-                               @RequestParam(required = false) Message message) {
+                               @RequestParam(required = false) Message message,
+                               @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable) {
         Set<Message> messages = user.getMessages();
 
         model.addAttribute("subscriptionsCount", user.getSubscriptions().size());
@@ -115,8 +123,8 @@ public class MainController {
         model.addAttribute("message", message);
         model.addAttribute("isCurrentUser", currentUser.equals(user));
         model.addAttribute("isSubscriber", user.getSubscribers().contains(currentUser));
-        
-        return "userMessages";
+
+        return "/userMessages";
     }
 
     @PostMapping("/user-messages/{user}")

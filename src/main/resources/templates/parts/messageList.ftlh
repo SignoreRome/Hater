@@ -1,7 +1,10 @@
 <#include "security.ftlh">
+<#import "pager.ftlh" as p>
+
+<@p.pager url page />
 
 <div class="row row-cols-1 row-cols-md-3 g-4" xmlns="http://www.w3.org/1999/html" id="messageList">
-    <#list messages as message>
+    <#list page.content as message>
         <div class="col" data-id="${message.id}">
             <div class="card my-3">
                 <div>
@@ -30,3 +33,5 @@
         </div>
     </#list>
 </div>
+
+<@p.pager url page />
